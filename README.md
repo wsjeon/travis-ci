@@ -1,4 +1,4 @@
-NOTE: I made a Singularity image on Travis-CI and sent it to my google drive. After then, I used (Download from Google Drive in a Command Line)[https://github.com/circulosmeos/gdown.pl] to download my image.
+NOTE: I made a Singularity image on Travis-CI and sent it to my google drive. After then, I used [Download from Google Drive in a Command Line](https://github.com/circulosmeos/gdown.pl) to download my image. To rebuild images, the option for build trigger should be turned on (Currently, turned off.)
 
 # Singularity Builders Travis-CI
 
