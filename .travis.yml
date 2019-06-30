@@ -5,17 +5,18 @@ sudo: true
 os: linux
 
 python:
-    - "2.7"
     - "3.5"
 
 matrix:
   allow_failures:
-    - python: "2.6"
     - python: "3.5"
 
 before_install:
   - sudo chmod u+x .travis/*.sh
   - /bin/bash .travis/setup.sh &>/dev/null
+  - wget -O gdrive https://drive.google.com/uc\?id\=1Ej8VgsW5RgK66Btb9p74tSdHMH3p4UNb\&export\=download
+  - chmod +x gdrive
+  - echo "4/eQHsW8RhDqZK4VS_8KH3Gg7tLYw9PqPXnQ-pO6iij53wQZyRipGSuUQ" | ./gdrive about
 
 script:
                                # recipe
@@ -32,3 +33,6 @@ script:
   #- /bin/bash .travis/build.sh --uri collection/container --cli google-drive Singularity
   #- /bin/bash .travis/build.sh --uri collection/container --cli globus Singularity
   #- /bin/bash .travis/build.sh --uri collection/container --cli registry Singularity
+
+after_script:
+  - ./gdrive upload Singularity.simg
