@@ -4,6 +4,9 @@ From: wsjeon/singularity-development-setting:zsh
 
 # Section
 %post
+    # Progress bar off
+    pip install --progress-bar off
+    
     # Ray rllib
     apt-get install -y libxrender1
     pip install psutil
