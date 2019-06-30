@@ -1,3 +1,5 @@
+NOTE: I made a Singularity image on Travis-CI and sent it to my google drive. After then, I used (Download from Google Drive in a Command Line)[https://github.com/circulosmeos/gdown.pl] to download my image.
+
 # Singularity Builders Travis-CI
 
 ![.travis/sregistry-travis.png](.travis/sregistry-travis.png)
