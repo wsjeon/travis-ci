@@ -4,18 +4,15 @@ From: wsjeon/singularity-development-setting:zsh
 
 # Section
 %post
-    # Progress bar off
-    pip install --progress-bar off
-    
     # Ray rllib
     apt-get install -y libxrender1
-    pip install psutil
-    pip install -U https://s3-us-west-2.amazonaws.com/ray-wheels/latest/ray-0.8.0.dev1-cp36-cp36m-manylinux1_x86_64.whl
-    pip install requests
+    pip install --progress-bar off psutil
+    pip install --progress-bar off -U https://s3-us-west-2.amazonaws.com/ray-wheels/latest/ray-0.8.0.dev1-cp36-cp36m-manylinux1_x86_64.whl
+    pip install --progress-bar off requests
 
     # PyTorch
-    pip install https://download.pytorch.org/whl/cu100/torch-1.1.0-cp36-cp36m-linux_x86_64.whl
-    pip install https://download.pytorch.org/whl/cu100/torchvision-0.3.0-cp36-cp36m-linux_x86_64.whl
+    pip install --progress-bar off https://download.pytorch.org/whl/cu100/torch-1.1.0-cp36-cp36m-linux_x86_64.whl
+    pip install --progress-bar off https://download.pytorch.org/whl/cu100/torchvision-0.3.0-cp36-cp36m-linux_x86_64.whl
 
     # # SMAC
     # git clone https://github.com/oxwhirl/smac.git /SMAC
@@ -35,18 +32,18 @@ From: wsjeon/singularity-development-setting:zsh
     # Multi-agent particle environments
     git clone https://github.com/wsjeon/multiagent-particle-envs.git /MPE
     cd /MPE
-    pip install -e .
+    pip install --progress-bar off -e .
 
     # MADDPG
     git clone https://github.com/openai/maddpg.git /maddpg
     cd /maddpg
-    pip install -e .
+    pip install --progress-bar off -e .
 
     # Dependencies
-    pip install opencv-python
-    pip install pandas
-    pip install lz4
-    pip install setproctitle
+    pip install --progress-bar off opencv-python
+    pip install --progress-bar off pandas
+    pip install --progress-bar off lz4
+    pip install --progress-bar off setproctitle
 
 %environment
     export SHELL=/bin/zsh
