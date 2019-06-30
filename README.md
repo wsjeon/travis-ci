@@ -1,3 +1,5 @@
+NOTES: Please Check Release 2.6 Branch.
+
 # Singularity Builders Travis-CI
 
 ![.travis/sregistry-travis.png](.travis/sregistry-travis.png)
