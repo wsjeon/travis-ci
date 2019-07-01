@@ -46,11 +46,10 @@ From: wsjeon/singularity-development-setting:zsh
     pip install --progress-bar off setproctitle
 
 %environment
+    # export SC2PATH=/StarCraftII
     export SHELL=/bin/zsh
-    export SC2PATH=/StarCraftII
 
 %runscript
-    # rm ~/ray_results
-    # mkdir -p /tmp_log/ray_results
-    # ln -s /tmp_log/ray_results ~/ray_results
+    mkdir -p /tmp_log/ray_results
+    ln -sf /tmp_log/ray_results ~/ray_results
     exec /bin/zsh "$@"
