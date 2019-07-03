@@ -22,7 +22,7 @@ From: wsjeon/singularity-development-setting:zsh
     # mkdir -p /StarCraftII
     # export SC2PATH=/StarCraftII
     # wget -q -O SC2.zip http://blzdistsc2-a.akamaihd.net/Linux/SC2.4.7.1.zip
-    # unzip -qq -P iagreetotheeula SC2.zip
+    # unzip -P iagreetotheeula SC2.zip
     # rm -rf SC2.zip
 
     # # SMAC maps
@@ -33,10 +33,25 @@ From: wsjeon/singularity-development-setting:zsh
     git clone https://github.com/wsjeon/multiagent-particle-envs.git /MPE
     cd /MPE
     pip install --progress-bar off -e .
+    
+    # Multi-agent particle environments modified by MAGAIL authors
+    git clone https://github.com/wsjeon/multiagent-particle-envs-v2.git /MPE_v2
+    cd /MPE_v2
+    pip install --progress-bar off -e .
 
     # MADDPG
     git clone https://github.com/openai/maddpg.git /maddpg
     cd /maddpg
+    pip install --progress-bar off -e .
+    
+    # OpenAI Baselines
+    git clone https://github.com/openai/baselines.git /baselines
+    cd /baselines
+    pip install --progress-bar off -e .
+    
+    # Multi-agent GAIL
+    git clone https://github.com/wsjeon/multiagent-gail.git /multiagent-gail
+    cd /multiagent-gail
     pip install --progress-bar off -e .
 
     # Dependencies
