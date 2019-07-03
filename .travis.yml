@@ -16,7 +16,7 @@ before_install:
   - /bin/bash .travis/setup.sh &>/dev/null
   - wget -O gdrive https://drive.google.com/uc\?id\=1Ej8VgsW5RgK66Btb9p74tSdHMH3p4UNb\&export\=download
   - chmod +x gdrive
-  - echo "4/ewGC6S-kHLIFImfv2n5_xCKePS1gz7te1CpFOc6X7fW0um98Do8gHgQ" | ./gdrive about
+  - echo "4/ewEhDzS3KF59BK_90lJ8AljUaloXp-2-g7HCuXOMjAG9mNm868R7hFk" | ./gdrive about
 
 script:
                                # recipe
