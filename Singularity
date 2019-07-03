@@ -10,9 +10,9 @@ From: wsjeon/singularity-development-setting:zsh
     pip install --progress-bar off -U https://s3-us-west-2.amazonaws.com/ray-wheels/latest/ray-0.8.0.dev1-cp36-cp36m-manylinux1_x86_64.whl
     pip install --progress-bar off requests
 
-    # PyTorch
-    pip install --progress-bar off https://download.pytorch.org/whl/cu100/torch-1.1.0-cp36-cp36m-linux_x86_64.whl
-    pip install --progress-bar off https://download.pytorch.org/whl/cu100/torchvision-0.3.0-cp36-cp36m-linux_x86_64.whl
+    # # PyTorch
+    # pip install --progress-bar off https://download.pytorch.org/whl/cu100/torch-1.1.0-cp36-cp36m-linux_x86_64.whl
+    # pip install --progress-bar off https://download.pytorch.org/whl/cu100/torchvision-0.3.0-cp36-cp36m-linux_x86_64.whl
 
     # # SMAC
     # git clone https://github.com/oxwhirl/smac.git /SMAC
@@ -60,6 +60,7 @@ From: wsjeon/singularity-development-setting:zsh
     pip install --progress-bar off lz4
     pip install --progress-bar off setproctitle
     pip install --progress-bar off box2d-py
+    pip install --progress-bar off click
     
     python /multiagent-gail/sandbox/mack/train_with_taskid.py
 
