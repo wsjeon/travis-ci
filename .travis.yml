@@ -14,9 +14,9 @@ matrix:
 before_install:
   - sudo chmod u+x .travis/*.sh
   - /bin/bash .travis/setup.sh &>/dev/null
-  - wget -O gdrive https://drive.google.com/uc\?id\=1Ej8VgsW5RgK66Btb9p74tSdHMH3p4UNb\&export\=download
-  - chmod +x gdrive
-  - echo "4/ewEhDzS3KF59BK_90lJ8AljUaloXp-2-g7HCuXOMjAG9mNm868R7hFk" | ./gdrive about
+  #- wget -O gdrive https://drive.google.com/uc\?id\=1Ej8VgsW5RgK66Btb9p74tSdHMH3p4UNb\&export\=download
+  #- chmod +x gdrive
+  #- echo "4/ewEhDzS3KF59BK_90lJ8AljUaloXp-2-g7HCuXOMjAG9mNm868R7hFk" | ./gdrive about
 
 script:
                                # recipe
@@ -35,4 +35,6 @@ script:
   #- /bin/bash .travis/build.sh --uri collection/container --cli registry Singularity
 
 after_script:
-  - ./gdrive upload Singularity.simg
+  # - ./gdrive upload Singularity.simg
+  - echo "Done"
+  
