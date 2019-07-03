@@ -62,6 +62,8 @@ From: wsjeon/singularity-development-setting:zsh
     pip install --progress-bar off box2d-py
     pip install --progress-bar off click
     
+    pip list
+    
     python /multiagent-gail/sandbox/mack/train_with_taskid.py
 
 %environment
