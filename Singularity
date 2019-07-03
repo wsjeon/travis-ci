@@ -59,6 +59,9 @@ From: wsjeon/singularity-development-setting:zsh
     pip install --progress-bar off pandas
     pip install --progress-bar off lz4
     pip install --progress-bar off setproctitle
+    pip install --progress-bar off box2d-py
+    
+    python /multiagent-gail/sandbox/mack/train_with_taskid.py
 
 %environment
     # export SC2PATH=/StarCraftII
