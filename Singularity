@@ -1,56 +1,92 @@
-# Header
-Bootstrap: shub
-From: wsjeon/singularity-development-setting:zsh
+#This is a dockerfile that sets up a full Gym install with test dependencies
+Bootstrap: docker
 
-# Section
+# Here we'll build our container upon the pytorch container
+From: pytorch/pytorch:1.0-cuda10.0-cudnn7-runtime
+
+# Now we'll copy the mjkey file located in the current directory inside the container's root
+# directory
+%files
+        mjkey.txt
+
+# Then we put everything we need to install
 %post
-    # Ray rllib
-    apt-get install -y libxrender1
-    pip install psutil
-    pip install -U https://s3-us-west-2.amazonaws.com/ray-wheels/latest/ray-0.8.0.dev1-cp36-cp36m-manylinux1_x86_64.whl
-    pip install requests
+        export PATH=$PATH:/opt/conda/bin
+        apt -y update && \
+        apt install -y keyboard-configuration && \
+        apt install -y \
+        zsh \
+        python3-dev \
+        python-pyglet \
+        python3-opengl \
+        libhdf5-dev \
+        libjpeg-dev \
+        libboost-all-dev \
+        libsdl2-dev \
+        libosmesa6-dev \
+        patchelf \
+        ffmpeg \
+        xvfb \
+        libhdf5-dev \
+        openjdk-8-jdk \
+        wget \
+        vim \
+        git \
+        unzip && \
+        apt clean && \
+        rm -rf /var/lib/apt/lists/*
+        pip install h5py
+        pip install pandas
+        pip install matplotlib
+        pip install seaborn
+        pip install wandb
+        pip install ipython
+        pip install ipdb
+        # pip install lockfile
 
-    # PyTorch
-    pip install https://download.pytorch.org/whl/cu100/torch-1.1.0-cp36-cp36m-linux_x86_64.whl
-    pip install https://download.pytorch.org/whl/cu100/torchvision-0.3.0-cp36-cp36m-linux_x86_64.whl
+        # Download Gym and Mujoco
+        mkdir /Gym && cd /Gym
+        git clone https://github.com/openai/gym.git || true && \
+        mkdir /Gym/.mujoco && cd /Gym/.mujoco
+        wget https://www.roboti.us/download/mjpro150_linux.zip  && \
+        unzip mjpro150_linux.zip && \
+        wget https://www.roboti.us/download/mujoco200_linux.zip && \
+        unzip mujoco200_linux.zip && \
+        mv mujoco200_linux mujoco200
 
-    # # SMAC
-    # git clone https://github.com/oxwhirl/smac.git /SMAC
-    # pip install /SMAC
+        # Export global environment variables
+        export MUJOCO_PY_MJKEY_PATH=/Gym/.mujoco/mjkey.txt
+        export MUJOCO_PY_MJPRO_PATH=/Gym/.mujoco/mjpro150/
+        export MUJOCO_PY_MUJOCO_PATH=/Gym/.mujoco/mujoco200/
+        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/Gym/.mujoco/mjpro150/bin
+        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/Gym/.mujoco/mujoco200/bin
+        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/bin
+        cp /mjkey.txt /Gym/.mujoco/mjkey.txt
 
-    # # StarCraftII
-    # mkdir -p /StarCraftII
-    # export SC2PATH=/StarCraftII
-    # wget -q -O SC2.zip http://blzdistsc2-a.akamaihd.net/Linux/SC2.4.7.1.zip
-    # unzip -qq -P iagreetotheeula SC2.zip
-    # rm -rf SC2.zip
+        # Install python dependencies
+        pip install mujoco-py==1.50.1.56
 
-    # # SMAC maps
-    # mkdir -p $SC2PATH/Maps
-    # ln -s /SMAC/smac/env/starcraft2/maps/SMAC_Maps $SC2PATH/Maps
+        # Install Gym and Mujoco
+        cd /Gym/gym
+        pip install -e '.[all]'
 
-    # Multi-agent particle environments
-    git clone https://github.com/wsjeon/multiagent-particle-envs.git /MPE
-    cd /MPE
-    pip install -e .
+        # Change permission to use mujoco_py as non sudoer user
+        chmod -R 777 /opt/conda/lib/python3.6/site-packages/mujoco_py/
 
-    # MADDPG
-    git clone https://github.com/openai/maddpg.git /maddpg
-    cd /maddpg
-    pip install -e .
-
-    # Dependencies
-    pip install opencv-python
-    pip install pandas
-    pip install lz4
-    pip install setproctitle
+        # Mount
+        mkdir /dataset
+        mkdir /tmp_log
+        mkdir /final_log
 
 %environment
-    export SHELL=/bin/zsh
-    export SC2PATH=/StarCraftII
+        export SHELL=/bin/zsh
+        export MUJOCO_PY_MJKEY_PATH=/Gym/.mujoco/mjkey.txt
+        export MUJOCO_PY_MJPRO_PATH=/Gym/.mujoco/mjpro150/
+        export MUJOCO_PY_MUJOCO_PATH=/Gym/.mujoco/mujoco200/
+        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/Gym/.mujoco/mjpro150/bin
+        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/Gym/.mujoco/mujoco200/bin
+        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/bin
+        export PATH=/Gym/gym/.tox/py3/bin:$PATH
 
 %runscript
-    # rm ~/ray_results
-    # mkdir -p /tmp_log/ray_results
-    # ln -s /tmp_log/ray_results ~/ray_results
-    exec /bin/zsh "$@"
+        exec /bin/zsh "$@"
