@@ -60,3 +60,7 @@ script:
   #- /bin/bash .travis/build.sh --uri collection/container --cli google-drive Singularity
   #- /bin/bash .travis/build.sh --uri collection/container --cli globus Singularity
   - /bin/bash .travis/build.sh --uri wsjeon/travis-ci --cli registry Singularity
+  
+after_script:
+  # - ./gdrive upload Singularity.simg
+  - echo "Done"
